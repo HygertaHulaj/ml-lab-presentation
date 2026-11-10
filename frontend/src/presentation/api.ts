@@ -99,18 +99,34 @@ export interface MovieHoldout {
   movies: { label: string; budget: number; rating: number; set: 'train' | 'test'; budget_prediction: number }[]
 }
 
+/** One request per result: a slide reached while the same request is running reuses it (a failed one is retried). */
+const inflight = new Map<string, Promise<unknown>>()
+function once<T>(key: string, load: () => Promise<T>): Promise<T> {
+  const hit = inflight.get(key) as Promise<T> | undefined
+  if (hit) return hit
+  const p = load().catch((e) => { inflight.delete(key); throw e })
+  inflight.set(key, p)
+  return p
+}
+
 export const presentationApi = {
   movieHoldout: () => http.get<MovieHoldout>('/concepts/movie-holdout').then((r) => r.data),
-  ethics: () => http.get<Ethics>('/concepts/ethics').then((r) => r.data),
-  dataQuality: () => http.get<DataQuality>('/concepts/data-quality').then((r) => r.data),
+  ethics: () => once('ethics', () => http.get<Ethics>('/concepts/ethics').then((r) => r.data)),
+  dataQuality: () => once('dataQuality', () => http.get<DataQuality>('/concepts/data-quality').then((r) => r.data)),
   deepLearning: () => http.get<DeepLearning>('/concepts/deep-learning').then((r) => r.data),
   predictDigit: (pixels: number[]) => http.post<DigitReading>('/concepts/digits/predict', { pixels }).then((r) => r.data),
-  evaluation: () => http.get<Evaluation>('/concepts/evaluation').then((r) => r.data),
+  evaluation: () => once('evaluation', () => http.get<Evaluation>('/concepts/evaluation').then((r) => r.data)),
   tree: (q: { dataset?: string; target?: string; features: string[]; max_depth?: number; min_n?: number }) =>
     http.get<ConceptTree>('/concepts/tree', { params: { dataset: q.dataset ?? 'carseats', target: q.target ?? 'sales_cat', features: q.features.join(','), max_depth: q.max_depth ?? 1, min_n: q.min_n ?? 2 } }).then((r) => r.data),
   carseatsExplore: () => http.get<CarseatsExplore>('/concepts/carseats-explore').then((r) => r.data),
   analyzeAndProduce: () => http.get<AnalyzeProduce>('/concepts/analyze-and-produce').then((r) => r.data),
   learningJourney: () => http.get<LearningJourney>('/concepts/learning-journey').then((r) => r.data),
+  /** Online version only (VITE_WARMUP=1): compute the three slow results in the background, in talk order. */
+  async warmUp() {
+    for (const load of [presentationApi.evaluation, presentationApi.dataQuality, presentationApi.ethics]) {
+      try { await load() } catch { /* the slide itself shows the error and retries */ }
+    }
+  },
   ruleVsLearned: (humanThreshold: number) =>
     http.get<RuleVsLearned>('/concepts/rule-vs-learned', { params: { human_threshold: humanThreshold } }).then((r) => r.data),
 }

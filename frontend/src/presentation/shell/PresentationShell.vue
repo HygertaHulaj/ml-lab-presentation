@@ -15,6 +15,7 @@ import { CORE_MINUTES, SECTIONS, THROUGH_LINE, sectionById } from '../sections'
 import { FieldRenderer } from '../../visualizations/shared/ParticleField'
 import { SHELL, type Embed, type ShellApi } from './shellApi'
 import EmbedLayer from './EmbedLayer.vue'
+import { presentationApi } from '../api'
 import { toggleFullscreen } from '../../engine/InteractionController'
 
 const store = usePresentation()
@@ -100,6 +101,8 @@ function loop(now: number) {
 }
 
 onMounted(() => {
+  // online version: the free server computes the slow results once, in the background, while the talk starts
+  if (import.meta.env.VITE_WARMUP === '1') void presentationApi.warmUp()
   if (fieldCanvas.value) renderer = new FieldRenderer(fieldCanvas.value)
   raf = requestAnimationFrame(loop)
   window.addEventListener('keydown', onKey)

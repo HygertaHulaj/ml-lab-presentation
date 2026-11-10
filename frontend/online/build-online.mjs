@@ -14,7 +14,7 @@ if (!/^https:\/\/[\w.-]+$/.test(api)) {
 }
 const out = 'dist-online'
 rmSync(out, { recursive: true, force: true })
-execSync(`npx vite build --outDir ${out} --emptyOutDir`, { stdio: 'inherit', env: { ...process.env, VITE_API_URL: api } })
+execSync(`npx vite build --outDir ${out} --emptyOutDir`, { stdio: 'inherit', env: { ...process.env, VITE_API_URL: api, VITE_WARMUP: '1' } })
 
 const film = join(out, 'film', 'the-scan-that-changed-everything.mp4')
 rmSync(film, { force: true })

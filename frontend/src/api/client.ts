@@ -2,7 +2,8 @@ import axios, { AxiosError } from 'axios'
 
 export const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:8000'
 
-export const http = axios.create({ baseURL: `${API_BASE}/api/v1`, timeout: 120_000 })
+// 10 minutes: on the free online server a heavy first computation (ethics, data quality) can take about 5 minutes
+export const http = axios.create({ baseURL: `${API_BASE}/api/v1`, timeout: 600_000 })
 
 export class ApiError extends Error {
   constructor(message: string, public status?: number, public details?: unknown) {
