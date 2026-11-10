@@ -1,0 +1,112 @@
+{
+  "$comment": "Single source of truth for scene timing. Read by the Vue interactive story (frontend/src/experiences/cinematic) and by the Remotion cut (video/remotion). Times are seconds from the start of the film. Narration lives in narration.json; colours in visual-tokens.json.",
+  "id": "the-scan-that-changed-everything",
+  "title": "The Scan That Changed Everything",
+  "subtitle": "How Machines Learn to See What We Cannot",
+  "duration": 172,
+  "fps": 30,
+  "disclaimer": "RadiologyML, its scores and every medical image in this film are fictional and synthetic. AI output is not a diagnosis; clinicians make clinical decisions.",
+  "titleCard": { "start": 0.6, "end": 4.6 },
+  "scenes": [
+    {
+      "id": "s1-hospital", "n": 1, "title": "The Hospital Never Sleeps", "start": 0, "end": 15, "set": "exterior",
+      "intent": "Build atmosphere: scale, rain, a building full of light and work. No technical words yet.",
+      "shots": [
+        { "id": "1A", "start": 0, "end": 6, "move": "aerial descent", "lens": 38, "description": "High wide over the rain-soaked campus; the hospital tower glows against the city." },
+        { "id": "1B", "start": 6, "end": 12.5, "move": "push-in", "lens": 42, "description": "Slow dolly toward the third-floor radiology window; monitors flicker inside." },
+        { "id": "1C", "start": 12.5, "end": 15, "move": "through-window", "lens": 48, "description": "The camera passes through the glass without a cut and settles inside the lab." }
+      ],
+      "transition": { "type": "continuous", "description": "Real geometry: the lab exists behind the window." },
+      "audio": { "music": 0.25, "ambience": "rain, distant traffic, HVAC hum", "sfx": [ { "t": 13.2, "cue": "glass-whoosh" } ] }
+    },
+    {
+      "id": "s2-noe", "n": 2, "title": "Meet Noé", "start": 15, "end": 35, "set": "lab",
+      "intent": "Introduce Noé through action. His face moves from curiosity to concern as the wall of scans keeps growing.",
+      "shots": [
+        { "id": "2A", "start": 15, "end": 24, "move": "tracking", "lens": 40, "description": "Side tracking shot: Noé walks in carrying his tablet, glancing at radiologists at their desks." },
+        { "id": "2B", "start": 24, "end": 30, "move": "focus shift", "lens": 50, "description": "Over-the-shoulder: focus racks from Noé's face to the scan wall streaming thumbnails." },
+        { "id": "2C", "start": 30, "end": 35, "move": "slow push-in", "lens": 55, "description": "Close on Noé: curiosity becomes concern." }
+      ],
+      "transition": { "type": "continuous" },
+      "audio": { "music": 0.32, "ambience": "lab room tone, keyboard clicks, soft monitor hum", "sfx": [ { "t": 16.0, "cue": "door" }, { "t": 25.0, "cue": "ui-stream" } ] }
+    },
+    {
+      "id": "s3-question", "n": 3, "title": "The Question", "start": 35, "end": 50, "set": "lab",
+      "intent": "Human dialogue frames the problem. Dr. Salizar answers with a gesture, and the camera follows her gesture into the machine.",
+      "shots": [
+        { "id": "3A", "start": 35, "end": 42.5, "move": "two-shot orbit", "lens": 45, "description": "Slow orbit around Noé and Dr. Salizar at the MRI station while he asks." },
+        { "id": "3B", "start": 42.5, "end": 47, "move": "pan to workstation", "lens": 45, "description": "She smiles and gestures; the camera pans with her hand to the research workstation, which wakes." },
+        { "id": "3C", "start": 47, "end": 50, "move": "screen dive", "lens": 60, "description": "Push into the monitor until the interface fills the frame and becomes a world." }
+      ],
+      "transition": { "type": "screen-dive", "at": 49.0, "duration": 1.6 },
+      "audio": { "music": 0.4, "ambience": "lab room tone", "sfx": [ { "t": 45.5, "cue": "boot" }, { "t": 49.0, "cue": "dive" } ] }
+    },
+    {
+      "id": "s4-radiologyml", "n": 4, "title": "Introducing RadiologyML", "start": 50, "end": 70, "set": "digital",
+      "intent": "A credible, uncluttered pipeline around a holographic MRI. Confidence is shown as a model score with a caveat.",
+      "shots": [
+        { "id": "4A", "start": 50, "end": 58, "move": "reveal orbit", "lens": 40, "description": "The holographic brain MRI floats in a dark hall; data streams flow into it." },
+        { "id": "4B", "start": 58, "end": 70, "move": "arc track", "lens": 45, "description": "The camera arcs past six panels: input, preprocessing, pattern detection, prediction, model score, human review." }
+      ],
+      "transition": { "type": "flash-cut", "at": 69.3, "duration": 1.4, "description": "The camera dives into the mid slice; a flash hands over to the same image laid out as pixels." },
+      "pipeline": ["Input image", "Preprocessing", "Pattern detection", "Model prediction", "Model score", "Human review"],
+      "audio": { "music": 0.5, "ambience": "low digital air", "sfx": [ { "t": 59.0, "cue": "panel" }, { "t": 60.6, "cue": "panel" }, { "t": 62.2, "cue": "panel" }, { "t": 63.8, "cue": "panel" }, { "t": 65.4, "cue": "panel" }, { "t": 67.0, "cue": "panel" } ] }
+    },
+    {
+      "id": "s5-machine", "n": 5, "title": "Enter the Machine", "start": 70, "end": 95, "set": "journey",
+      "intent": "The key cinematic moment: image, then pixel intensities, then numbers, then learned features, then computation, then prediction, then comparison with the expert label. One continuous flight.",
+      "shots": [
+        { "id": "5A", "start": 70, "end": 76, "move": "dive into slice", "lens": 50, "description": "The MRI slice lies flat; pixels rise into columns whose height is their intensity." },
+        { "id": "5B", "start": 76, "end": 81, "move": "low glide", "lens": 55, "description": "Skimming the pixel field; an 8×8 patch lifts out as its real numbers." },
+        { "id": "5C", "start": 81, "end": 87, "move": "fly-through", "lens": 50, "description": "Through four feature maps computed by convolution, ReLU and pooling." },
+        { "id": "5D", "start": 87, "end": 95, "move": "pull-out", "lens": 42, "description": "Signals pulse through a small network to an output score, which is compared with the expert label." }
+      ],
+      "stages": ["Image", "Pixel intensities", "Numbers", "Learned features", "Model computation", "Prediction vs. label"],
+      "transition": { "type": "flash-cut", "at": 94.4, "duration": 1.2 },
+      "audio": { "music": 0.7, "ambience": "data wind", "sfx": [ { "t": 72.0, "cue": "rise" }, { "t": 78.0, "cue": "ui-stream" }, { "t": 88.0, "cue": "pulse" }, { "t": 92.5, "cue": "compare" } ] }
+    },
+    {
+      "id": "s6-mistakes", "n": 6, "title": "Learning from Mistakes", "start": 95, "end": 115, "set": "lab",
+      "intent": "A false positive. The expert corrects it, and the correction goes into a controlled loop: reviewed data, offline retraining, validation, release. No instant self-modification.",
+      "shots": [
+        { "id": "6A", "start": 95, "end": 103, "move": "over-shoulder", "lens": 50, "description": "Over Dr. Salizar's shoulder: a muted-red box reads POSSIBLE FINDING on a vessel artifact." },
+        { "id": "6B", "start": 103, "end": 115, "move": "rise to hologram", "lens": 42, "description": "She relabels it; the camera rises to a holographic loop of prediction, error, correction, retraining and validation." }
+      ],
+      "loop": ["Prediction", "Error found", "Expert correction", "Reviewed dataset", "Offline retraining", "Validation"],
+      "transition": { "type": "continuous" },
+      "audio": { "music": 0.45, "ambience": "lab room tone", "sfx": [ { "t": 96.5, "cue": "warn" }, { "t": 102.5, "cue": "correct" }, { "t": 112.0, "cue": "validate" } ] }
+    },
+    {
+      "id": "s7-second-eyes", "n": 7, "title": "A Second Pair of Eyes", "start": 115, "end": 135, "set": "lab",
+      "intent": "The system flags a new image for review; a specialist confirms. People decide, and the tool helped them notice sooner.",
+      "shots": [
+        { "id": "7A", "start": 115, "end": 121, "move": "push-in", "lens": 50, "description": "A new scan arrives. An amber flag reads FLAGGED FOR REVIEW." },
+        { "id": "7B", "start": 121, "end": 128, "move": "follow", "lens": 45, "description": "Dr. Salizar calls a specialist over; they study the image together." },
+        { "id": "7C", "start": 128, "end": 135, "move": "pull-back", "lens": 38, "description": "The camera pulls back to the whole care team; the hologram shows the clinical path." }
+      ],
+      "transition": { "type": "continuous" },
+      "audio": { "music": 0.55, "ambience": "lab room tone", "sfx": [ { "t": 116.5, "cue": "flag" }, { "t": 126.0, "cue": "confirm" } ] }
+    },
+    {
+      "id": "s8-what-learned", "n": 8, "title": "What Did the Machine Really Learn?", "start": 135, "end": 155, "set": "landscape",
+      "intent": "Noé alone with the question. The lab dissolves into a field of real Iris measurements that organise into groups and boundaries.",
+      "shots": [
+        { "id": "8A", "start": 135, "end": 141, "move": "close-up", "lens": 55, "description": "Close on Noé, thoughtful. The room starts to dissolve into light." },
+        { "id": "8B", "start": 141, "end": 155, "move": "rise and orbit", "lens": 40, "description": "Data points float, group and reveal decision regions; the camera rises above the field." }
+      ],
+      "transition": { "type": "dissolve", "at": 139, "duration": 4 },
+      "audio": { "music": 0.6, "ambience": "air, shimmer", "sfx": [ { "t": 143.0, "cue": "shimmer" } ] }
+    },
+    {
+      "id": "s9-reveal", "n": 9, "title": "The Machine Learning Reveal", "start": 155, "end": 172, "set": "reveal",
+      "intent": "Particles spell MACHINE LEARNING; four small visuals preview the paths; the particles settle into the dataset of the lab.",
+      "shots": [
+        { "id": "9A", "start": 155, "end": 166, "move": "pull-back", "lens": 40, "description": "Thousands of points assemble into the words MACHINE LEARNING." },
+        { "id": "9B", "start": 166, "end": 172, "move": "settle", "lens": 40, "description": "The letters fall apart into the 150 Iris points that become the lab's dataset." }
+      ],
+      "concepts": ["Classification", "Regression", "Clustering", "Model Evaluation"],
+      "transition": { "type": "into-lab", "at": 170, "duration": 2 },
+      "audio": { "music": 0.85, "ambience": "none", "sfx": [ { "t": 157.0, "cue": "assemble" }, { "t": 166.0, "cue": "resolve" } ] }
+    }
+  ]
+}

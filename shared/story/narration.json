@@ -1,0 +1,41 @@
+{
+  "$comment": "Narration, dialogue and on-screen notes with timings in seconds. speaker: narrator | noe | salizar | note. Subtitles (VTT/SRT) are generated from this file by scripts/build_subtitles.mjs.",
+  "voice": {
+    "narrator": "Warm, measured documentary voice, about 150 words per minute. Pauses at each full stop.",
+    "noe": "Early twenties, curious and slightly hesitant; this is his first question to a senior doctor.",
+    "salizar": "Confident and kind, with a small smile in the voice."
+  },
+  "cues": [
+    { "id": "n01", "scene": "s1-hospital", "speaker": "narrator", "start": 4.8, "end": 9.4, "text": "Every day, hospitals produce thousands of medical images.", "keywords": ["thousands"] },
+    { "id": "n02", "scene": "s1-hospital", "speaker": "narrator", "start": 9.8, "end": 14.6, "text": "Each one holds information that could change someone's life.", "keywords": ["life"] },
+
+    { "id": "n03", "scene": "s2-noe", "speaker": "narrator", "start": 16.5, "end": 19.5, "text": "This is Noé.", "keywords": ["noé"] },
+    { "id": "n04", "scene": "s2-noe", "speaker": "narrator", "start": 19.8, "end": 27.4, "text": "He works weekends at a university hospital, helping radiologists organize and review X-rays, CT scans, and MRI images.", "keywords": ["x-rays", "ct", "mri"] },
+    { "id": "n05", "scene": "s2-noe", "speaker": "noe", "start": 29.6, "end": 34.4, "text": "(to himself) How does anyone review all of this carefully?", "keywords": [] },
+
+    { "id": "n06", "scene": "s3-question", "speaker": "noe", "start": 36.2, "end": 42.0, "text": "With so many images every day... how do you make sure nothing important is missed?", "keywords": ["missed"] },
+    { "id": "n07", "scene": "s3-question", "speaker": "salizar", "start": 43.0, "end": 46.8, "text": "That's exactly why we're developing something new.", "keywords": ["new"] },
+
+    { "id": "n08", "scene": "s4-radiologyml", "speaker": "narrator", "start": 51.2, "end": 57.8, "text": "RadiologyML is an artificial intelligence system designed to help doctors identify patterns in medical images.", "keywords": ["radiologyml", "patterns"] },
+    { "id": "n09", "scene": "s4-radiologyml", "speaker": "narrator", "start": 58.4, "end": 65.6, "text": "Instead of examining every image from scratch, it learns patterns from examples that experts have already reviewed.", "keywords": ["learns", "examples"] },
+    { "id": "n10", "scene": "s4-radiologyml", "speaker": "note", "start": 66.0, "end": 69.8, "text": "RadiologyML is fictional. Its score is a model output, not a diagnosis.", "keywords": [] },
+
+    { "id": "n11", "scene": "s5-machine", "speaker": "narrator", "start": 71.0, "end": 75.2, "text": "To a machine, an image begins as numbers.", "keywords": ["numbers"] },
+    { "id": "n12", "scene": "s5-machine", "speaker": "narrator", "start": 76.4, "end": 84.2, "text": "During training, a model learns patterns in those numbers that can help distinguish one type of image from another.", "keywords": ["training", "patterns"] },
+    { "id": "n13", "scene": "s5-machine", "speaker": "narrator", "start": 85.4, "end": 93.6, "text": "The more useful the training examples and feedback, the better the model may become at recognizing relevant patterns.", "keywords": ["may"] },
+
+    { "id": "n14", "scene": "s6-mistakes", "speaker": "narrator", "start": 96.0, "end": 99.4, "text": "Machine learning models can make mistakes.", "keywords": ["mistakes"] },
+    { "id": "n15", "scene": "s6-mistakes", "speaker": "narrator", "start": 100.2, "end": 106.2, "text": "Doctors review their predictions, identify errors, and provide expert feedback.", "keywords": ["review", "feedback"] },
+    { "id": "n16", "scene": "s6-mistakes", "speaker": "narrator", "start": 107.0, "end": 114.4, "text": "After careful validation, those corrections can help researchers improve future versions of the model.", "keywords": ["validation", "future"] },
+
+    { "id": "n17", "scene": "s7-second-eyes", "speaker": "narrator", "start": 116.0, "end": 119.8, "text": "One day, the system flags an unusual pattern.", "keywords": ["flags"] },
+    { "id": "n18", "scene": "s7-second-eyes", "speaker": "narrator", "start": 120.8, "end": 127.4, "text": "Dr. Salizar sends the image to a specialist, who confirms that the finding needs urgent attention.", "keywords": ["specialist"] },
+    { "id": "n19", "scene": "s7-second-eyes", "speaker": "narrator", "start": 128.2, "end": 134.6, "text": "The technology hasn't replaced the doctor. It has helped the medical team notice something important sooner.", "keywords": ["sooner"] },
+
+    { "id": "n20", "scene": "s8-what-learned", "speaker": "narrator", "start": 136.8, "end": 140.4, "text": "But this raises a bigger question.", "keywords": [] },
+    { "id": "n21", "scene": "s8-what-learned", "speaker": "narrator", "start": 142.0, "end": 146.2, "text": "How can a computer learn from examples?", "keywords": ["learn"] },
+    { "id": "n22", "scene": "s8-what-learned", "speaker": "narrator", "start": 147.4, "end": 154.4, "text": "How does it recognize patterns, make predictions, and improve its performance?", "keywords": ["patterns", "predictions", "improve"] },
+
+    { "id": "n23", "scene": "s9-reveal", "speaker": "narrator", "start": 165.6, "end": 169.6, "text": "Welcome to Machine Learning.", "keywords": ["machine", "learning"] }
+  ]
+}

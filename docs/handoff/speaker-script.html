@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Speaker Script · Lecture 8</title>
+<style>
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  :root { --ink: #1b2430; --soft: #4a5566; --line: #d9dee6; --accent: #0b7186; --warn: #a5382b; --pale: #f3f6f9; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 10.5pt/1.5 "Segoe UI", system-ui, sans-serif; color: var(--ink); background: #fff; }
+  h1 { font-size: 22pt; margin: 0 0 4pt; }
+  h2 { font-size: 13.5pt; margin: 0 0 4pt; color: var(--accent); }
+  .sub { color: var(--soft); margin: 0 0 12pt; }
+  .q { font-size: 13pt; font-weight: 600; padding: 10pt 12pt; border-left: 4pt solid var(--accent); background: var(--pale); margin: 10pt 0 14pt; }
+  .meta { display: flex; gap: 14pt; font-size: 9pt; color: var(--soft); margin-bottom: 6pt; }
+  .meta b { color: var(--ink); }
+  .sec { border-top: 1pt solid var(--line); padding-top: 10pt; margin-top: 12pt; break-inside: avoid; }
+  .say { margin: 4pt 0; }
+  .say p { margin: 3pt 0; }
+  .say p::before { content: "SAY  "; font-size: 7.5pt; font-weight: 700; letter-spacing: .08em; color: var(--accent); }
+  .do { font-size: 9.5pt; color: var(--soft); margin: 4pt 0; }
+  .do::before { content: "DO  "; font-size: 7.5pt; font-weight: 700; letter-spacing: .08em; color: var(--soft); }
+  .nums { font-size: 9.5pt; margin: 4pt 0; }
+  .nums::before { content: "NUMBERS  "; font-size: 7.5pt; font-weight: 700; letter-spacing: .08em; color: var(--ink); }
+  .careful { font-size: 9.5pt; color: var(--warn); margin: 4pt 0; }
+  .careful::before { content: "CAREFUL  "; font-size: 7.5pt; font-weight: 700; letter-spacing: .08em; }
+  .bridge { font-style: italic; margin: 6pt 0 0; }
+  .bridge::before { content: "NEXT  "; font-style: normal; font-size: 7.5pt; font-weight: 700; letter-spacing: .08em; color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 6pt 0; }
+  th, td { text-align: left; padding: 4pt 6pt; border-bottom: 1pt solid var(--line); vertical-align: top; }
+  th { color: var(--soft); font-weight: 600; }
+  .page { break-before: page; }
+  ul { margin: 4pt 0 4pt 16pt; padding: 0; }
+  li { margin: 2pt 0; }
+  .foot { margin-top: 14pt; font-size: 8.5pt; color: var(--soft); }
+</style>
+</head>
+<body>
+
+<h1>Lecture 8 · Machine Learning — Speaker Script</h1>
+<p class="sub">Data Science for All, Chapter 8 · with Shah, <i>A Hands-On Introduction to Data Science</i>, Chapter 8 · about 80 minutes (planned; time it in rehearsal)</p>
+
+<div class="q">The one question for the whole talk:<br />“What evidence would make us trust a model’s prediction enough to use it?”</div>
+
+<table>
+  <tr><th>Start</th><td>http://localhost:8080/presentation (press <b>F</b> for full screen)</td></tr>
+  <tr><th>Keys</th><td><b>→</b> next · <b>←</b> back · <b>I</b> index · <b>L</b> light/dark · <b>M</b> mute · <b>Esc</b> back from an activity or 3D lesson</td></tr>
+  <tr><th>Rule</th><td>Every number on screen is computed live from the books’ data. If you don’t remember a number, read it off the screen.</td></tr>
+</table>
+
+<table>
+  <tr><th>#</th><th>Section</th><th>Minutes</th><th>Steps</th></tr>
+  <tr><td>1</td><td>Opening film</td><td>5</td><td>3</td></tr>
+  <tr><td>2</td><td>What is AI?</td><td>4</td><td>8</td></tr>
+  <tr><td>3</td><td>What is ML?</td><td>3</td><td>6</td></tr>
+  <tr><td>4</td><td>How learning works</td><td>4</td><td>8</td></tr>
+  <tr><td>5</td><td>§8.2 Three steps</td><td>6</td><td>11</td></tr>
+  <tr><td>6</td><td>§8.3 Characteristics of methods</td><td>13</td><td>14</td></tr>
+  <tr><td>7</td><td>Worked example: movies (Shah 8.4)</td><td>12</td><td>8</td></tr>
+  <tr><td>8</td><td>§8.4 Evaluation</td><td>12</td><td>15</td></tr>
+  <tr><td>9</td><td>§8.5 Deep learning</td><td>6</td><td>12</td></tr>
+  <tr><td>10</td><td>Recent research (Kruschel et al., 2025)</td><td>3</td><td>3</td></tr>
+  <tr><td>11</td><td>§8.6 High-quality data</td><td>5</td><td>8</td></tr>
+  <tr><td>12</td><td>Ethics in practice</td><td>4</td><td>10</td></tr>
+  <tr><td>13</td><td>Conclusion</td><td>3</td><td>5</td></tr>
+  <tr><th></th><th>Total</th><th>80</th><th>111</th></tr>
+</table>
+<p class="do">Steps are the screens you move through with →; some steps reveal in a few beats, so you press → a little more often than this. The minutes are a plan: time one rehearsal.</p>
+
+<div class="sec">
+  <h2>1 · Opening film — “The Scan That Changed Everything” (5 min)</h2>
+  <div class="meta"><span>Question: <b>Can a prediction be trusted?</b></span></div>
+  <div class="say">
+    <p>Before we define anything, watch what happens to Noé.</p>
+    <p>(after the film) Every scan is data. A system turned that data into a prediction about a patient. Today’s question is: what evidence would make us trust that prediction enough to use it?</p>
+  </div>
+  <p class="do">The film plays 2 min 52 s with captions. Space pauses; S or Esc skips.</p>
+  <p class="careful">The film is a fictional scenario written for this lecture. RadiologyML is not a real clinical system.</p>
+  <p class="bridge">The system produced a prediction. Which part of that process was learned?</p>
+</div>
+
+<div class="sec">
+  <h2>2 · What is artificial intelligence? (4 min)</h2>
+  <div class="say">
+    <p>Artificial intelligence is the broad field: machines doing tasks that would need intelligence.</p>
+    <p>Machine learning is the part that learns rules from examples instead of being given the rules.</p>
+    <p>Deep learning is one kind of machine learning, with many-layered neural networks.</p>
+    <p>On the screen: a rule a person wrote, and a rule learned from real flowers. Which one would you trust, and why?</p>
+  </div>
+  <p class="do">Try It Yourself: identify AI. Let the class call out answers, then → checks them.</p>
+  <p class="bridge">If the rule is learned, how does the learning actually happen?</p>
+</div>
+
+<div class="sec">
+  <h2>3 · What is machine learning? (3 min)</h2>
+  <div class="say">
+    <p>Traditional programming: we write the rules. Machine learning: we give examples with answers, and the algorithm finds the rule. That is training.</p>
+    <p>Inference is using the trained rule on a new case.</p>
+    <p>The score on flowers it has already seen is optimistic. The honest score is on flowers it has never seen.</p>
+  </div>
+  <p class="bridge">Where does training sit in a whole project, from raw data to a prediction we can check?</p>
+</div>
+
+<div class="sec">
+  <h2>4 · How learning works (4 min)</h2>
+  <div class="say">
+    <p>Seven stages, one dataset: 150 iris flowers. Collect, prepare, choose features, split, train, predict, evaluate.</p>
+    <p>We split first. The test flowers are locked away before we choose features or train, so the test stays a fair check.</p>
+    <p>Two rows have identical measurements and labels. For this demonstration we keep one; in a real study we would check whether they are repeated records or two different flowers.</p>
+  </div>
+  <p class="nums">Training accuracy 98.1 % · test accuracy 91.1 % on the unseen flowers.</p>
+  <p class="careful">Feature scores are computed on the training flowers only. The tree depth is chosen by cross-validation on the training data.</p>
+  <p class="bridge">The book groups this work into three steps. What are they, and what can a model learn without labels?</p>
+</div>
+
+<div class="sec">
+  <h2>5 · §8.2 Three steps in the machine-learning process (6 min)</h2>
+  <div class="say">
+    <p>Step 1, ingest the data. Step 2, analyze it with a method. Step 3, produce results that someone uses.</p>
+    <p>Supervised learning has the answers in the training data, the labels. Unsupervised learning has no labels and looks for structure.</p>
+    <p>Here are the same flowers. With labels we see species. Without labels, K-Means finds three groups. The groups are patterns, not species names.</p>
+  </div>
+  <p class="do">Colours: species are teal / green / violet; clusters are pink / amber / blue. Short of time? Skip the Tesla case and the tidy-data detail.</p>
+  <p class="do">Practise here: Activity 2; K-Means on Iris in 3D (optional, Esc returns).</p>
+  <p class="bridge">We know where learning happens. What kind of answer are we asking the model to produce?</p>
+</div>
+
+<div class="sec page">
+  <h2>6 · §8.3 Characteristics of machine-learning methods (13 min)</h2>
+  <div class="say">
+    <p>Three questions describe any method. Is the answer a category or a number — classification or regression? Do we want to understand the relationship, inference, or just predict well? And how interpretable is the model versus how complex?</p>
+    <p>A decision tree asks one question at a time. Here is the book’s car seat tree: read it from the top, and follow one store to its prediction.</p>
+    <p>Careful with explanatory variables: a variable that is just another version of the answer is a surrogate and makes the model look better than it is.</p>
+    <p>Deeper trees fit more detail but are harder to explain.</p>
+  </div>
+  <p class="do">Practise here: Activities 3–6 (pick one, about 3 minutes). Short of time? Shorten the penguins Try It.</p>
+  <p class="bridge">A category answers which kind; a numerical model answers how much. How does a model learn to predict a number?</p>
+</div>
+
+<div class="sec">
+  <h2>7 · Worked example: Can money buy a better movie rating? (12 min)</h2>
+  <div class="meta"><span>Source: Shah, Hands-On Problem 8.4, p. 233 — not a DS4A dataset</span></div>
+  <div class="say">
+    <p>Pick one of these three movies; we will follow it into the next section. Now predict: will adding social-media reactions to budget make ratings much easier to predict?</p>
+    <p>Which single factor first? Our rule: the strongest correlation with the rating. That is budget. It is an association, not a cause.</p>
+    <p>For one movie: the line predicts this, the real rating is that, the difference is the error. We square it so positive and negative errors don’t cancel and big errors count more.</p>
+    <p>The cost J adds up all the squared errors. Gradient descent takes small steps downhill on that cost until it stops improving.</p>
+    <p>The slope of the line is not the gradient. The gradient is the direction in which the cost rises fastest; each step goes the other way.</p>
+    <p>Bigger steps? With α = 2.2 the steps overshoot and the cost grows.</p>
+  </div>
+  <p class="nums">Budget alone R² = 0.104 (about 10 % of the variation) · with likes, dislikes and comments R² = 0.219 · descent with α = 0.1 settles at cost J = 0.447. All measured on the same movies the model was fitted to.</p>
+  <p class="careful">Say “in-sample”: these R² values say nothing yet about new movies.</p>
+  <p class="do">Practise here: the same model in 3D; Problem 8.4 activity; Restaurants (Problem 8.1); Airlines; Rock.</p>
+  <p class="bridge">We reduced error on these examples. What tells us the model will work on new ones?</p>
+</div>
+
+<div class="sec">
+  <h2>8 · §8.4 Machine-learning method evaluation (12 min)</h2>
+  <div class="say">
+    <p>Judge a model on data it did not learn from. The book splits 400 car-seat stores into 319 for training and 81 for testing.</p>
+    <p>Two kinds of mistakes: a false positive and a false negative. In medicine, which is worse depends on the situation.</p>
+    <p>Accuracy, precision, recall and specificity each answer a different question about those mistakes.</p>
+    <p>To choose a model, use validation or cross-validation. Keep the test set for one final check.</p>
+    <p>Back to our movies: on movies the model never saw, the budget model does about as well as guessing the average.</p>
+  </div>
+  <p class="nums">Confusion matrix (Table 8.3): TP 22, FP 11, FN 11, TN 37 · accuracy 0.73 · precision 0.67 · recall 0.67 · specificity 0.77 · car seats: cross-validation picks depth 4, test 67.9 % · movies: budget R² 0.104 fitted vs −0.003 held-out; median 0.067 over 50 splits.</p>
+  <p class="careful">Specificity = TN / (TN + FP). The book prints TN / (TN + FN); in its example FP = FN, so the number is the same.</p>
+  <p class="do">Practise here: Activities 7–8.</p>
+  <p class="bridge">We supplied measurements to the earlier models. What if the input is the image itself?</p>
+</div>
+
+<div class="sec page">
+  <h2>9 · §8.5 Deep learning (6 min)</h2>
+  <div class="say">
+    <p>An image is just numbers: this handwritten digit is 8 × 8 = 64 shades.</p>
+    <p>A neural network passes those numbers through layers and learns its own features from the pixels.</p>
+    <p>Here is one digit it gets right, and one it gets wrong.</p>
+    <p>The cost: much more data, computing power, and it is hard to explain. And it is not automatically the best method — on ordinary tables of data, tree models often do as well or better.</p>
+  </div>
+  <p class="careful">Say “can”, not “always”: deep learning can learn useful representations; how well depends on the task, the data and the model.</p>
+  <p class="bridge">Is the far end of the trade-off always necessary? What does recent research say?</p>
+</div>
+
+<div class="sec">
+  <h2>10 · Recent research: accuracy versus interpretability (3 min)</h2>
+  <div class="say">
+    <p>In §8.3 we saw a trade-off: flexible models may predict better but are harder to explain. A 2025 study tested whether that is really true.</p>
+    <p>Kruschel and colleagues compared 14 models on 20 real tabular datasets, with cross-validation and tuning: 68,500 model runs. Seven were modern interpretable models called GAMs: like linear regression, but each variable gets a curve you can plot and read.</p>
+    <p>The result: an interpretable model, EBM, came second of 14, ahead of XGBoost, random forest and neural networks; only CatBoost was better. On classification the gap to the best black box was at most 0.015 AUROC.</p>
+    <p>But the old interpretable models, a straight line and a single tree, ranked near the bottom. So the trade-off is real for them, not for modern interpretable models.</p>
+    <p>What it means for us: on tables of data, try an interpretable model first; reading the model also helps us find bias. The limits: tabular data only. Noé's scan is an image, so this result does not carry over directly.</p>
+  </div>
+  <p class="nums">Average rank after tuning (1 = best): CatBoost 2.85 · EBM 4.05 · XGBoost 4.30 · random forest 4.83 · MLP 6.48 · linear/logistic regression 11.08 · decision tree 11.55. EBM is first on the 10 classification datasets (3.35). Black boxes won on 14 of 20 datasets.</p>
+  <p class="careful">These are the paper's published numbers (Table 4), not computed by our app. Say "on tabular data" every time: the authors themselves say images and text may differ. Business &amp; Information Systems Engineering 68(1), 159–183, online 13 Feb 2025, doi:10.1007/s12599-024-00922-2.</p>
+  <p class="bridge">A powerful model still learns from a particular sample of the world. What makes that sample good enough?</p>
+</div>
+
+<div class="sec">
+  <h2>11 · §8.6 Use high-quality data (5 min)</h2>
+  <div class="say">
+    <p>Garbage in, garbage out. Four dimensions: freshness, volume, diversity, quality.</p>
+    <p>Fresh: the world changes, a new scanner changes the images. Volume: more examples help, up to a point. Diversity: a model can’t recognise what it never saw. Quality: wrong labels and blurred data cost accuracy.</p>
+    <p>Training data should represent the cases the model will meet.</p>
+  </div>
+  <p class="nums">Freshness demo: 97.5 % drops to 90.0 % with the new scanner; retraining restores it.</p>
+  <p class="bridge">Who is missing from the sample, and who pays for the model’s mistakes?</p>
+</div>
+
+<div class="sec">
+  <h2>12 · Ethics in practice: social justice in data science (4 min)</h2>
+  <div class="say">
+    <p>Bias enters through the data, the people who build systems, and how systems are used.</p>
+    <p>Facial analysis trained mostly on light-skinned faces fails other people more often.</p>
+    <p>Here is the mechanism, measured on penguins: a group that is rare in the training data gets far more errors, while overall accuracy still looks fine.</p>
+    <p>AI can also reduce human bias — if it is checked for each group and people stay accountable.</p>
+  </div>
+  <p class="nums">Gender Shades (2018): up to 34.7 % errors for darker-skinned women vs at most 0.8 % for lighter-skinned men · penguin demo: 27 % error for the rare group while overall accuracy is 94.6 %; after mitigation 3.5 %.</p>
+  <p class="careful">Gender Shades measured commercial gender classification, not police identity matching. The penguins are an analogy, not face data.</p>
+  <p class="bridge">Back to Noé: what evidence would we need before trusting the scan’s prediction?</p>
+</div>
+
+<div class="sec">
+  <h2>13 · Conclusion: back to Noé’s scan (3 min)</h2>
+  <div class="say">
+    <p>An impressive prediction is not yet evidence.</p>
+    <p>A prediction is a score for one scan. A decision is what happens to the patient — and people make it and own it.</p>
+    <p>Before trusting a model, ask for five things: representative data, suitable validation, known error costs, performance for each group, and human review.</p>
+  </div>
+  <p class="do">Three recall questions: let the class discuss each before → checks. Then the sources slide: that is the end of the presentation.</p>
+</div>
+
+<div class="sec page">
+  <h2>If the professor asks…</h2>
+  <table>
+    <tr><th>Question</th><th>Short answer</th></tr>
+    <tr><td>Why did you change the specificity formula?</td><td>Specificity is TN / (TN + FP): the share of real negatives we correctly call negative. The book prints TN / (TN + FN); in its matrix FP = FN, so the value is the same.</td></tr>
+    <tr><td>Why not pick the model with the best test score?</td><td>Then the test set is used for choosing and is no longer an honest check. We choose with cross-validation and test once.</td></tr>
+    <tr><td>R² rose when you added variables — so the model is better?</td><td>Only in-sample. R² never falls when you add variables. On held-out movies the budget model was about zero.</td></tr>
+    <tr><td>Are the K-Means clusters the species?</td><td>No. Clusters are groups found without labels; we compare them with species only at the end.</td></tr>
+    <tr><td>Does a higher budget cause a better rating?</td><td>No — an association in observational data, and a weak one.</td></tr>
+    <tr><td>Where do the numbers come from?</td><td>Computed live on the books’ datasets by the backend (scikit-learn and our own NumPy code), tested against independent fits.</td></tr>
+    <tr><td>Is deep learning always better?</td><td>No. It can learn features from images and text, but on typical tables tree models often match or beat it (Grinsztajn et al., NeurIPS 2022).</td></tr>
+    <tr><td>Why that research paper?</td><td>It tests the book's interpretability-versus-complexity trade-off (Fig. 8.13) on 20 real datasets, published 2025 in a peer-reviewed journal (Kruschel et al., BISE 68(1)). Result: on tabular data a modern interpretable model came 2nd of 14.</td></tr>
+    <tr><td>Problem 8.1 data?</td><td>The book’s OA 8.3 file: 15 restaurants. rating = −15.87 + 0.134·ambience + 0.734·food + 0.324·service, R² 0.794; only food is significant (p = 0.016).</td></tr>
+  </table>
+
+  <h2 style="margin-top:14pt">Before class (10 minutes)</h2>
+  <ul>
+    <li>Start the app (Docker: <code>.\scripts\start-docker.ps1</code>), open the link, press F.</li>
+    <li>Bright room? Press L for the light theme.</li>
+    <li>Check §8.4 step 4 shows 22 / 11 / 11 / 37 — if it says the backend is not reachable, the API is not running.</li>
+    <li>Backup: <code>docs/handoff/fallback/Lecture8-fallback.pdf</code> (every step as a picture) and the film MP4.</li>
+  </ul>
+  <p class="foot">Generated from the presenter notes and the computed results of the application, 8 Nov 2026. Times are a plan — rehearse once with a timer.</p>
+</div>
+
+</body>
+</html>

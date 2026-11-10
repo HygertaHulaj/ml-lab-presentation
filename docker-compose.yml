@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mllab}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mllab}
+      POSTGRES_DB: ${POSTGRES_DB:-mllab}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-mllab}"]
+      interval: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    environment:
+      MLLAB_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-mllab}:${POSTGRES_PASSWORD:-mllab}@db:5432/${POSTGRES_DB:-mllab}
+      MLLAB_CORS_ORIGINS: '["http://localhost:5173","http://localhost:8080"]'
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - storage:/app/storage
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  pgdata:
+  storage:

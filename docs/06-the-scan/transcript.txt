@@ -1,0 +1,23 @@
+[00:04] Every day, hospitals produce thousands of medical images.
+[00:09] Each one holds information that could change someone's life.
+[00:16] This is Noé.
+[00:19] He works weekends at a university hospital, helping radiologists organize and review X-rays, CT scans, and MRI images.
+[00:29] Noé: (to himself) How does anyone review all of this carefully?
+[00:36] Noé: With so many images every day... how do you make sure nothing important is missed?
+[00:43] Dr. Salizar: That's exactly why we're developing something new.
+[00:51] RadiologyML is an artificial intelligence system designed to help doctors identify patterns in medical images.
+[00:58] Instead of examining every image from scratch, it learns patterns from examples that experts have already reviewed.
+[01:06] Note: RadiologyML is fictional. Its score is a model output, not a diagnosis.
+[01:11] To a machine, an image begins as numbers.
+[01:16] During training, a model learns patterns in those numbers that can help distinguish one type of image from another.
+[01:25] The more useful the training examples and feedback, the better the model may become at recognizing relevant patterns.
+[01:36] Machine learning models can make mistakes.
+[01:40] Doctors review their predictions, identify errors, and provide expert feedback.
+[01:47] After careful validation, those corrections can help researchers improve future versions of the model.
+[01:56] One day, the system flags an unusual pattern.
+[02:00] Dr. Salizar sends the image to a specialist, who confirms that the finding needs urgent attention.
+[02:08] The technology hasn't replaced the doctor. It has helped the medical team notice something important sooner.
+[02:16] But this raises a bigger question.
+[02:22] How can a computer learn from examples?
+[02:27] How does it recognize patterns, make predictions, and improve its performance?
+[02:45] Welcome to Machine Learning.

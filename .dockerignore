@@ -1,0 +1,11 @@
+# context for the frontend image (repo root); the backend image uses backend/.dockerignore
+.venv
+**/node_modules
+**/__pycache__
+frontend/dist
+frontend/test-results
+frontend/playwright-report
+video
+academic
+backend/storage
+docs

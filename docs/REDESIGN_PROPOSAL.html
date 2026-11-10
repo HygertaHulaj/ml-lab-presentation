@@ -1,0 +1,481 @@
+<title>The Case File Proposal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: a case file. A dark film-world page; each part is a folder tab; palettes are shown as working mini-slides. */
+:root {
+  color-scheme: dark;
+  --ink: #04070e;          /* film near-black */
+  --night: #070b14;        /* page ground */
+  --navy: #0b1630;         /* surfaces */
+  --line: rgba(159, 176, 200, .18);
+  --text: #e8eef8;
+  --dim: #9fb0c8;
+  --faint: #6e7f98;
+  --cyan: #38d6f0;         /* data, the machine */
+  --amber: #f2b54a;        /* humans, insight */
+  --violet: #8b7cf6;       /* learned features */
+  --green: #5fd39a;        /* validated */
+  --red: #e06666;          /* warning */
+  --display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', Consolas, ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--night); color: var(--text); font: 400 16px/1.6 var(--body); }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 56px 96px; }
+h1, h2, h3, h4 { font-family: var(--display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.eyebrow { font: 600 12px var(--display); letter-spacing: .28em; text-transform: uppercase; color: var(--cyan); }
+.muted { color: var(--dim); }
+.small { font-size: 13px; color: var(--faint); }
+code, .mono { font-family: var(--mono); font-size: .92em; }
+a { color: var(--cyan); }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+/* ---------- cover */
+.cover { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.cover h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.02; letter-spacing: -.01em; margin-top: 14px; }
+.cover h1 span { color: var(--amber); }
+.cover .lead { margin-top: 20px; font-size: clamp(17px, 1.6vw, 20px); color: var(--dim); max-width: 58ch; }
+.stamp { display: inline-flex; gap: 10px; align-items: center; margin-top: 26px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; font: 500 13px var(--mono); color: var(--dim); }
+.stamp b { color: var(--green); font-weight: 500; }
+.folder { position: relative; border-radius: 4px 18px 18px 18px; background: linear-gradient(160deg, #0e1a36, #0a1126); border: 1px solid var(--line); padding: 26px; min-height: 300px; }
+.folder::before { content: "CASE 8 · RADIOLOGYML"; position: absolute; top: -30px; left: -1px; padding: 6px 16px; border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; background: #0e1a36; font: 600 11px var(--display); letter-spacing: .22em; color: var(--amber); }
+.folder .row { display: flex; gap: 14px; align-items: flex-start; }
+.bubble { position: relative; background: #13223f; border: 1px solid rgba(56,214,240,.35); border-radius: 14px; padding: 12px 14px; font-size: 15px; max-width: 300px; }
+.bubble::after { content: ""; position: absolute; left: 22px; bottom: -8px; width: 14px; height: 14px; background: #13223f; border-right: 1px solid rgba(56,214,240,.35); border-bottom: 1px solid rgba(56,214,240,.35); transform: rotate(45deg); }
+.bubble.amber { border-color: rgba(242,181,74,.5); }
+.bubble.amber::after { border-color: rgba(242,181,74,.5); }
+.cast { display: flex; gap: 18px; margin-top: 22px; align-items: flex-end; }
+.cast figure { margin: 0; text-align: center; }
+.cast figcaption { font: 500 12px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
+
+/* ---------- parts */
+.part { margin-top: 88px; }
+.part-head { display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
+.part-head .tab { font: 600 12px var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--ink); background: var(--amber); padding: 4px 10px; border-radius: 6px; }
+.part-head h2 { font-size: clamp(26px, 3.2vw, 38px); }
+.part-intro { margin-top: 14px; max-width: 70ch; color: var(--dim); font-size: 17px; }
+
+/* learned list */
+.learned { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.learned div { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: rgba(11,22,48,.55); min-width: 0; }
+.learned strong { display: block; font: 600 16px var(--display); margin-bottom: 4px; }
+.learned span { color: var(--dim); font-size: 14.5px; }
+.learned em { font-style: normal; font-size: 12px; color: var(--green); display: block; margin-top: 8px; font-family: var(--mono); }
+
+/* idea pillars */
+.pillars { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.pillar { padding: 20px; border-radius: 14px; background: var(--navy); border-top: 3px solid var(--c, var(--cyan)); min-width: 0; }
+.pillar h3 { font-size: 19px; }
+.pillar p { margin-top: 8px; color: var(--dim); font-size: 15px; }
+
+/* ---------- palettes */
+.palettes { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+.pal { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: rgba(11,22,48,.4); min-width: 0; }
+.pal.rec { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber); }
+.pal-body { padding: 18px 20px 20px; }
+.pal-body h3 { font-size: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.pill { font: 600 11px var(--display); letter-spacing: .14em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: var(--amber); color: var(--ink); }
+.pal-body p { margin-top: 6px; color: var(--dim); font-size: 14.5px; }
+.swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 14px; }
+.sw { min-width: 0; }
+.sw i { display: block; height: 38px; border-radius: 8px; border: 1px solid rgba(255,255,255,.08); }
+.sw b { display: block; margin-top: 4px; font: 500 10.5px var(--mono); color: var(--dim); }
+.sw small { display: block; font-size: 10.5px; color: var(--faint); line-height: 1.3; }
+/* mini slide preview inside each palette */
+.mini { aspect-ratio: 16 / 9; max-width: 100%; position: relative; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.mini .k { font: 600 9px var(--display); letter-spacing: .24em; text-transform: uppercase; }
+.mini .t { font: 600 clamp(17px, 2vw, 22px)/1.1 var(--display); }
+.mini .b { font-size: 11.5px; max-width: 60%; }
+.mini .viz { position: absolute; right: 18px; bottom: 16px; width: 44%; height: 58%; }
+.mini .nb { position: absolute; left: 20px; bottom: 16px; display: flex; gap: 8px; align-items: flex-end; }
+.mini .nb span { font-size: 10.5px; padding: 6px 8px; border-radius: 9px; max-width: 150px; line-height: 1.3; }
+
+/* act colour strip */
+.acts-strip { margin-top: 26px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.acts-strip div { padding: 12px 10px 14px; border-radius: 10px; background: var(--navy); border-bottom: 4px solid var(--c); min-width: 0; }
+.acts-strip b { display: block; font: 600 11px var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--c); }
+.acts-strip span { display: block; font-size: 13px; margin-top: 4px; }
+
+/* ---------- section plans */
+.plan { margin-top: 26px; display: grid; gap: 18px; }
+.sec { display: grid; grid-template-columns: 260px minmax(0, 1fr); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: rgba(11,22,48,.45); }
+.sec-side { padding: 22px; background: linear-gradient(170deg, color-mix(in srgb, var(--c) 22%, #0b1630), #0b1630 70%); border-right: 1px solid var(--line); min-width: 0; }
+.sec-side .act { font: 600 11px var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--c); }
+.sec-side h3 { font-size: 22px; margin-top: 8px; }
+.sec-side .now { margin-top: 10px; font-size: 13px; color: var(--faint); }
+.sec-side .q { margin-top: 16px; font-size: 14px; color: var(--text); padding: 10px 12px; border-radius: 12px; background: rgba(4,7,14,.45); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); }
+.sec-side .q b { display: block; font: 600 10px var(--display); letter-spacing: .2em; color: var(--c); margin-bottom: 2px; }
+.sec-main { padding: 22px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px 22px; min-width: 0; }
+.sec-main h4 { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); font-weight: 600; }
+.sec-main ul { margin: 8px 0 0; padding-left: 18px; color: var(--text); font-size: 14.5px; }
+.sec-main li { margin-bottom: 5px; }
+.sec-main li::marker { color: var(--c); }
+.sec-main .wide { grid-column: 1 / -1; }
+.tag { display: inline-block; font: 500 11px var(--mono); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); color: var(--dim); margin: 0 4px 4px 0; }
+.tag.new { color: var(--green); border-color: rgba(95,211,154,.4); }
+.tag.keep { color: var(--cyan); border-color: rgba(56,214,240,.35); }
+
+/* ---------- roadmap */
+.road { margin-top: 26px; overflow-x: auto; }
+.road table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 14.5px; }
+.road th, .road td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.road th { font: 600 11px var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); }
+.road td:first-child { font: 600 15px var(--display); white-space: nowrap; }
+.road td.days { font-family: var(--mono); color: var(--amber); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* decisions */
+.decide { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.decide div { padding: 18px; border-radius: 14px; border: 1px dashed rgba(242,181,74,.45); min-width: 0; }
+.decide strong { font: 600 16px var(--display); display: block; }
+.decide p { margin-top: 6px; color: var(--dim); font-size: 14.5px; }
+.decide em { display: block; margin-top: 10px; font-style: normal; font-size: 13px; color: var(--amber); }
+
+.keepline { margin-top: 22px; padding: 16px 18px; border-left: 3px solid var(--green); background: rgba(95,211,154,.07); border-radius: 0 12px 12px 0; color: var(--dim); font-size: 15px; }
+.keepline b { color: var(--text); }
+
+@media (max-width: 860px) {
+  .cover { grid-template-columns: 1fr; }
+  .folder { margin-top: 28px; }
+  .sec { grid-template-columns: 1fr; }
+  .sec-side { border-right: 0; border-bottom: 1px solid var(--line); }
+  .acts-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .folder .bubble { animation: pop .6s ease both; }
+  .folder .bubble.amber { animation-delay: .35s; }
+  @keyframes pop { from { transform: translateY(6px); opacity: .4; } to { transform: none; opacity: 1; } }
+}
+</style>
+
+<div class="wrap">
+
+  <!-- ============================== COVER -->
+  <header class="cover">
+    <div>
+      <div class="eyebrow">Proposal · ML presentation, DS4A Chapter 8</div>
+      <h1>Turn the lecture into <span>Noé's case file</span></h1>
+      <p class="lead">Keep everything that works today, the film, the real computations and the tested sections, and re-stage them as one story told in acts. The film's characters guide every slide, each act gets its own colour from the film, and the 3D world from the opening keeps living in the background.</p>
+      <div class="stamp">status <b>proposal</b> · nothing changed yet · 6 Nov 2026</div>
+    </div>
+    <div class="folder" aria-label="Preview: a slide in the proposed style">
+      <div class="row">
+        <div class="bubble">How does anyone review all of these scans carefully?</div>
+      </div>
+      <div class="row" style="justify-content:flex-end;margin-top:22px">
+        <div class="bubble amber">Let me show you how a machine learns from examples.</div>
+      </div>
+      <div class="cast">
+        <figure>
+          <svg width="88" height="120" viewBox="0 0 88 120" role="img" aria-label="Noé, 2D style">
+            <circle cx="44" cy="34" r="22" fill="#d9a57b"/>
+            <circle cx="30" cy="16" r="9" fill="#2a1d17"/><circle cx="44" cy="11" r="10" fill="#2a1d17"/><circle cx="58" cy="16" r="9" fill="#2a1d17"/><circle cx="25" cy="27" r="7" fill="#2a1d17"/><circle cx="63" cy="27" r="7" fill="#2a1d17"/>
+            <circle cx="36" cy="36" r="3.2" fill="#161b26"/><circle cx="52" cy="36" r="3.2" fill="#161b26"/>
+            <path d="M37 46 q7 5 14 0" stroke="#7a4a33" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M16 118 q4-48 28-50 q24 2 28 50z" fill="#2f8f9d"/>
+            <rect x="48" y="82" width="9" height="13" rx="2" fill="#f2b54a"/>
+          </svg>
+          <figcaption>Noé · asks</figcaption>
+        </figure>
+        <figure>
+          <svg width="92" height="128" viewBox="0 0 92 128" role="img" aria-label="Dr. Salizar, 2D style">
+            <circle cx="46" cy="9" r="8" fill="#1b1412"/>
+            <circle cx="46" cy="36" r="22" fill="#b97a55"/>
+            <path d="M24 32 q22-26 44 0 q-4-18-22-18 q-18 0-22 18z" fill="#1b1412"/>
+            <circle cx="38" cy="38" r="3.2" fill="#161b26"/><circle cx="54" cy="38" r="3.2" fill="#161b26"/>
+            <path d="M38 48 q8 6 16 0" stroke="#6e3f28" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M14 128 q4-52 32-54 q28 2 32 54z" fill="#eef2f7"/>
+            <path d="M36 76 l10 20 l10-20" fill="#3c4a6e"/>
+            <path d="M30 80 q-2 18 10 22" stroke="#30384a" stroke-width="2.6" fill="none"/>
+          </svg>
+          <figcaption>Dr. Salizar · explains</figcaption>
+        </figure>
+        <figure>
+          <svg width="70" height="70" viewBox="0 0 70 70" role="img" aria-label="RadiologyML orb, the mascot">
+            <defs><radialGradient id="orb" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#bff4ff"/><stop offset="55%" stop-color="#38d6f0"/><stop offset="100%" stop-color="#3b7bff"/></radialGradient></defs>
+            <circle cx="35" cy="35" r="24" fill="url(#orb)"/>
+            <ellipse cx="35" cy="35" rx="32" ry="9" fill="none" stroke="#8b7cf6" stroke-width="2" opacity=".8"/>
+            <circle cx="28" cy="32" r="3" fill="#04070e"/><circle cx="42" cy="32" r="3" fill="#04070e"/>
+          </svg>
+          <figcaption>RadiologyML orb</figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================== PART 1 -->
+  <section class="part" aria-labelledby="p1">
+    <div class="part-head"><span class="tab">Part 1</span><h2 id="p1">What the reference does well</h2></div>
+    <p class="part-intro">From <a href="https://drawingconclusionsfromdata.netlify.app/" target="_blank" rel="noopener">Drawing Conclusions from Data</a>. These are the habits worth borrowing. The marked ones already exist in our presentation.</p>
+    <div class="learned">
+      <div><strong>Acts, not topics</strong><span>"Act 1 · The Plan", "Act 3 · The Suspicious Coin". Every slide belongs to a chapter of a story, so the audience always knows where they are.</span></div>
+      <div><strong>A narrator on every slide</strong><span>A character speaks each idea in a speech bubble before the definition card appears. The concept arrives as part of a conversation.</span></div>
+      <div><strong>A friendly mascot</strong><span>A small robot sits in the corner. It gives the deck a face and a sense of humour without stealing the stage.</span></div>
+      <div><strong>"Next step" reveals</strong><span>One click adds one idea, with a visible counter (1 / 5). Nothing appears before it is explained.</span><em>✓ we have this (→ inside each step)</em></div>
+      <div><strong>Data you can touch</strong><span>A grid of 384 students you sample from; a coin you flip. The data is the picture.</span><em>✓ we have this (real Iris, car seats, penguins)</em></div>
+      <div><strong>English and Albanian</strong><span>An EN / SQ switch. For a class at FSHMN this matters: students can follow in their first language.</span></div>
+    </div>
+  </section>
+
+  <!-- ============================== PART 2 -->
+  <section class="part" aria-labelledby="p2">
+    <div class="part-head"><span class="tab">Part 2</span><h2 id="p2">The idea: one case, five acts</h2></div>
+    <p class="part-intro">The film already gives us a story, a cast and a world. Today the sections after the film switch to a neutral "lecture" voice. The proposal is to keep that story running to the last slide: Noé investigates how RadiologyML works, and each section of Chapter 8 becomes one act of his investigation.</p>
+    <div class="pillars">
+      <div class="pillar" style="--c:var(--amber)"><h3>The cast stays on stage</h3><p>2D versions of Noé and Dr. Salizar (same faces, hair and clothes as the film) appear on every step. Noé asks the question, which is the line we already show in amber, and Dr. Salizar answers. A set of 8 poses and 6 expressions covers all slides.</p></div>
+      <div class="pillar" style="--c:var(--cyan)"><h3>The film world as a living backdrop</h3><p>The opening's 3D world can draw any moment of the film. Each act opens with a 4–6 second camera move inside it: the rainy hospital, the lab, the RadiologyML hall, the pixel field, the data landscape. Then it settles behind the slide, slowed and dimmed.</p></div>
+      <div class="pillar" style="--c:var(--violet)"><h3>Bigger pictures, fewer words</h3><p>Every step gets one hero visual that fills at least 60 % of the screen. Definitions move into "case file" cards that slide in after the picture. Small print (sources, notes) goes into a presenter-notes view.</p></div>
+      <div class="pillar" style="--c:var(--green)"><h3>Bilingual by design</h3><p>All on-screen text lives in content files, so an EN / SQ switch is a data job, not a redesign. Albanian text needs one review by a native speaker in the department.</p></div>
+    </div>
+  </section>
+
+  <!-- ============================== PART 3 -->
+  <section class="part" aria-labelledby="p3">
+    <div class="part-head"><span class="tab">Part 3</span><h2 id="p3">Colour: three palettes taken from the film</h2></div>
+    <p class="part-intro">Every option uses only colours that already appear in the film, so the slides and the video feel like one production. They differ in mood. The mini-slides show the same slide in each palette.</p>
+
+    <div class="palettes">
+      <!-- A -->
+      <article class="pal">
+        <div class="mini" style="background:#070b14;color:#e8eef8">
+          <div class="k" style="color:#38d6f0">Act II · How machines learn</div>
+          <div class="t">Training happens once</div>
+          <div class="b" style="color:#9fb0c8">Data with answers goes in; a trained model comes out.</div>
+          <svg class="viz" viewBox="0 0 200 120" aria-hidden="true"><rect x="70" y="30" width="60" height="50" rx="10" fill="#0e1730" stroke="#38d6f0" stroke-width="2"/><circle cx="20" cy="40" r="6" fill="#38d6f0"/><circle cx="20" cy="60" r="6" fill="#8b7cf6"/><circle cx="20" cy="80" r="6" fill="#38d6f0"/><path d="M30 55 H66" stroke="#38d6f0" stroke-dasharray="4 4"/><rect x="146" y="40" width="48" height="30" rx="8" fill="none" stroke="#5fd39a" stroke-width="2"/></svg>
+          <div class="nb"><span style="background:#13223f;border:1px solid rgba(56,214,240,.4)">Where does the rule come from?</span></div>
+        </div>
+        <div class="pal-body">
+          <h3>A · Night Shift</h3>
+          <p>Today's look, refined. Cool, scientific, very calm. Strongest continuity with the film's digital scenes; the risk is that it feels the same from start to end.</p>
+          <div class="swatches">
+            <div class="sw"><i style="background:#070b14"></i><b>#070B14</b><small>ground</small></div>
+            <div class="sw"><i style="background:#0b1630"></i><b>#0B1630</b><small>surface</small></div>
+            <div class="sw"><i style="background:#38d6f0"></i><b>#38D6F0</b><small>data</small></div>
+            <div class="sw"><i style="background:#3b7bff"></i><b>#3B7BFF</b><small>compute</small></div>
+            <div class="sw"><i style="background:#8b7cf6"></i><b>#8B7CF6</b><small>features</small></div>
+            <div class="sw"><i style="background:#f2b54a"></i><b>#F2B54A</b><small>humans</small></div>
+          </div>
+        </div>
+      </article>
+      <!-- B -->
+      <article class="pal rec">
+        <div class="mini" style="background:linear-gradient(160deg,#10202a,#0c1622);color:#f3efe8">
+          <div class="k" style="color:#e8a65a">Act II · How machines learn</div>
+          <div class="t">Training happens once</div>
+          <div class="b" style="color:#b9c4c8">Data with answers goes in; a trained model comes out.</div>
+          <svg class="viz" viewBox="0 0 200 120" aria-hidden="true"><rect x="70" y="30" width="60" height="50" rx="10" fill="#152a35" stroke="#3fb6c4" stroke-width="2"/><circle cx="20" cy="40" r="6" fill="#3fb6c4"/><circle cx="20" cy="60" r="6" fill="#e88b6b"/><circle cx="20" cy="80" r="6" fill="#3fb6c4"/><path d="M30 55 H66" stroke="#3fb6c4" stroke-dasharray="4 4"/><rect x="146" y="40" width="48" height="30" rx="8" fill="none" stroke="#8fd3a8" stroke-width="2"/></svg>
+          <div class="nb"><span style="background:#1b3340;border:1px solid rgba(232,166,90,.5)">Where does the rule come from?</span></div>
+        </div>
+        <div class="pal-body">
+          <h3>B · Warm Lab <span class="pill">Recommended</span></h3>
+          <p>Taken from the radiology lab: Noé's teal scrubs, the desk-lamp amber, Dr. Salizar's white coat, the deep blue-green of the room at night. More human and warmer, which suits a story with characters. It still meets the film's cyan in Acts II–III.</p>
+          <div class="swatches">
+            <div class="sw"><i style="background:#0c1622"></i><b>#0C1622</b><small>ground</small></div>
+            <div class="sw"><i style="background:#152a35"></i><b>#152A35</b><small>surface</small></div>
+            <div class="sw"><i style="background:#3fb6c4"></i><b>#3FB6C4</b><small>scrubs teal</small></div>
+            <div class="sw"><i style="background:#e8a65a"></i><b>#E8A65A</b><small>lamp amber</small></div>
+            <div class="sw"><i style="background:#e88b6b"></i><b>#E88B6B</b><small>coral</small></div>
+            <div class="sw"><i style="background:#f3efe8"></i><b>#F3EFE8</b><small>lab coat</small></div>
+          </div>
+        </div>
+      </article>
+      <!-- C -->
+      <article class="pal">
+        <div class="mini" style="background:radial-gradient(ellipse at 70% 30%,#1d1440,#0a0820 65%);color:#efeaff">
+          <div class="k" style="color:#c9a7ff">Act II · How machines learn</div>
+          <div class="t">Training happens once</div>
+          <div class="b" style="color:#b7aed6">Data with answers goes in; a trained model comes out.</div>
+          <svg class="viz" viewBox="0 0 200 120" aria-hidden="true"><rect x="70" y="30" width="60" height="50" rx="10" fill="#1a1238" stroke="#8b7cf6" stroke-width="2"/><circle cx="20" cy="40" r="6" fill="#38d6f0"/><circle cx="20" cy="60" r="6" fill="#e88bd0"/><circle cx="20" cy="80" r="6" fill="#38d6f0"/><path d="M30 55 H66" stroke="#8b7cf6" stroke-dasharray="4 4"/><rect x="146" y="40" width="48" height="30" rx="8" fill="none" stroke="#5fd39a" stroke-width="2"/></svg>
+          <div class="nb"><span style="background:#251a4d;border:1px solid rgba(232,139,208,.5)">Where does the rule come from?</span></div>
+        </div>
+        <div class="pal-body">
+          <h3>C · Data Aurora</h3>
+          <p>From inside the machine: the violet feature maps, the magenta clusters, the pixel field. The most striking option. Use it for one act only (the data journey), as a whole deck it would tire the eye.</p>
+          <div class="swatches">
+            <div class="sw"><i style="background:#0a0820"></i><b>#0A0820</b><small>ground</small></div>
+            <div class="sw"><i style="background:#1a1238"></i><b>#1A1238</b><small>surface</small></div>
+            <div class="sw"><i style="background:#8b7cf6"></i><b>#8B7CF6</b><small>violet</small></div>
+            <div class="sw"><i style="background:#e88bd0"></i><b>#E88BD0</b><small>magenta</small></div>
+            <div class="sw"><i style="background:#38d6f0"></i><b>#38D6F0</b><small>cyan</small></div>
+            <div class="sw"><i style="background:#5fd39a"></i><b>#5FD39A</b><small>mint</small></div>
+          </div>
+        </div>
+      </article>
+      <!-- light -->
+      <article class="pal">
+        <div class="mini" style="background:#f2f4f8;color:#0b1630">
+          <div class="k" style="color:#0e7f95">Act II · How machines learn</div>
+          <div class="t">Training happens once</div>
+          <div class="b" style="color:#46556e">Data with answers goes in; a trained model comes out.</div>
+          <svg class="viz" viewBox="0 0 200 120" aria-hidden="true"><rect x="70" y="30" width="60" height="50" rx="10" fill="#ffffff" stroke="#0e7f95" stroke-width="2"/><circle cx="20" cy="40" r="6" fill="#0e7f95"/><circle cx="20" cy="60" r="6" fill="#6b5bd8"/><circle cx="20" cy="80" r="6" fill="#0e7f95"/><path d="M30 55 H66" stroke="#0e7f95" stroke-dasharray="4 4"/><rect x="146" y="40" width="48" height="30" rx="8" fill="none" stroke="#2f9e64" stroke-width="2"/></svg>
+          <div class="nb"><span style="background:#ffffff;border:1px solid rgba(201,138,26,.6);color:#0b1630">Where does the rule come from?</span></div>
+        </div>
+        <div class="pal-body">
+          <h3>D · Lecture Hall Light</h3>
+          <p>A backup, not a style. Dark slides go grey and muddy on a projector in a bright room. One switch (L) moves the same palette onto paper white with deeper accents. Worth having for the day itself.</p>
+          <div class="swatches">
+            <div class="sw"><i style="background:#f2f4f8"></i><b>#F2F4F8</b><small>ground</small></div>
+            <div class="sw"><i style="background:#ffffff"></i><b>#FFFFFF</b><small>surface</small></div>
+            <div class="sw"><i style="background:#0b1630"></i><b>#0B1630</b><small>ink</small></div>
+            <div class="sw"><i style="background:#0e7f95"></i><b>#0E7F95</b><small>data</small></div>
+            <div class="sw"><i style="background:#c98a1a"></i><b>#C98A1A</b><small>humans</small></div>
+            <div class="sw"><i style="background:#6b5bd8"></i><b>#6B5BD8</b><small>features</small></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <h3 style="margin-top:40px;font-size:20px">Each act takes its accent from the film scene it continues</h3>
+    <p class="muted" style="margin-top:6px;max-width:70ch">The base palette stays the same; only the accent changes, so the audience feels the story move. The colours keep the meanings they had in the film.</p>
+    <div class="acts-strip">
+      <div style="--c:#3b7bff"><b>Prologue</b><span>the film · rain blue</span></div>
+      <div style="--c:#e8a65a"><b>Act I</b><span>What is AI · lamp amber</span></div>
+      <div style="--c:#38d6f0"><b>Act II</b><span>How machines learn · data cyan</span></div>
+      <div style="--c:#8b7cf6"><b>Act III</b><span>Section 8.2 · feature violet</span></div>
+      <div style="--c:#3fb6c4"><b>Act IV</b><span>Section 8.3 · scrubs teal</span></div>
+      <div style="--c:#5fd39a"><b>Act V</b><span>The lab · validated green</span></div>
+      <div style="--c:#e88b6b"><b>Epilogue</b><span>Case closed · coral</span></div>
+    </div>
+  </section>
+
+  <!-- ============================== PART 4 -->
+  <section class="part" aria-labelledby="p4">
+    <div class="part-head"><span class="tab">Part 4</span><h2 id="p4">Section by section</h2></div>
+    <p class="part-intro">For each section: the act it becomes, Noé's question that opens it, the new hero visual, and what changes. <span class="tag keep">keep</span> marks work that already exists and stays. <span class="tag new">new</span> marks additions.</p>
+
+    <div class="plan">
+
+      <article class="sec" style="--c:#3b7bff">
+        <div class="sec-side">
+          <div class="act">Prologue</div>
+          <h3>The Scan That Changed Everything</h3>
+          <p class="now">now: section 1 · the film + pixels-to-data</p>
+          <p class="q"><b>Noé</b>How does anyone review all of this carefully?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Keep</h4><ul><li>The finished film, untouched <span class="tag keep">keep</span></li><li>The pixel dissolve into data <span class="tag keep">keep</span></li></ul></div>
+          <div><h4>Add</h4><ul><li>A "case file opens" moment after the film: a folder stamped <i>Case 8 · RadiologyML</i> lists the five acts as tabs <span class="tag new">new</span></li><li>Albanian subtitles as a switchable track <span class="tag new">new</span></li></ul></div>
+          <div class="wide"><h4>Note</h4><p class="muted" style="font-size:14.5px">The MP4 has English captions burned in. Albanian subtitles need one caption-free render of the same film (no change to the film itself), so either language can be laid on top. That render also fixes the 693 MB file size.</p></div>
+        </div>
+      </article>
+
+      <article class="sec" style="--c:#e8a65a">
+        <div class="sec-side">
+          <div class="act">Act I</div>
+          <h3>What is intelligence in a machine?</h3>
+          <p class="now">now: section 2 · AI</p>
+          <p class="q"><b>Noé</b>Is RadiologyML "intelligent", like a doctor?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Hero visual</h4><ul><li>A 2.5D cut-away of the hospital. Each room holds one task that needs intelligence: imaging, translation, recommendations, fruit sorting. Noé walks from room to room <span class="tag new">new</span></li><li>AI ⊃ ML ⊃ DL drawn as the film's holographic rings around the RadiologyML orb <span class="tag new">new</span></li></ul></div>
+          <div><h4>Interaction</h4><ul><li>Rules vs learning becomes a duel: Noé writes his rule on a clipboard, Dr. Salizar hands the machine 70 examples, and both are tested live <span class="tag keep">keep the real numbers</span></li><li>"Identify AI" as cards the class votes on <span class="tag keep">keep</span></li></ul></div>
+        </div>
+      </article>
+
+      <article class="sec" style="--c:#38d6f0">
+        <div class="sec-side">
+          <div class="act">Act II</div>
+          <h3>How does a machine learn?</h3>
+          <p class="now">now: sections 3 + 4 · ML, how ML works</p>
+          <p class="q"><b>Noé</b>So who writes the rule, if not a person?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Hero visual</h4><ul><li>The pipelines become a conveyor inside the RadiologyML hall from the film; flower tokens ride it <span class="tag new">new</span></li><li>The seven-stage journey stays as it is, framed as "Noé's lab notebook": each stage is a notebook page that turns <span class="tag new">new</span></li></ul></div>
+          <div><h4>Keep</h4><ul><li>Programming vs training vs inference, real samples <span class="tag keep">keep</span></li><li>Collect → evaluate on 150 flowers, the decision tree and the confusion matrix <span class="tag keep">keep</span></li></ul></div>
+          <div class="wide"><h4>Change</h4><p class="muted" style="font-size:14.5px">Merge sections 3 and 4 into one act with a short "chapter card" between them, so the story doesn't stop twice. The side panels shrink, and their text moves into Dr. Salizar's speech and the presenter notes.</p></div>
+        </div>
+      </article>
+
+      <article class="sec" style="--c:#8b7cf6">
+        <div class="sec-side">
+          <div class="act">Act III</div>
+          <h3>A day in RadiologyML's life</h3>
+          <p class="now">now: section 5 · DS4A §8.2</p>
+          <p class="q"><b>Noé</b>What actually happens between a scan and a result?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Hero visual</h4><ul><li>The three steps laid out as one hospital day: morning (ingest: scans and records arrive), afternoon (analyze: the model is fitted), evening (results: emails, dashboards, follow-ups). A clock at the top moves with the steps <span class="tag new">new</span></li><li>The cookie factory drawn as a real illustrated kitchen line instead of boxes <span class="tag new">new</span></li></ul></div>
+          <div><h4>Keep</h4><ul><li>Supervised vs unsupervised on Iris with real K-Means <span class="tag keep">keep</span></li><li>Gradient descent on Shah's data, predictions, both Try It Yourself exercises <span class="tag keep">keep</span></li></ul></div>
+        </div>
+      </article>
+
+      <article class="sec" style="--c:#3fb6c4">
+        <div class="sec-side">
+          <div class="act">Act IV</div>
+          <h3>Choosing the right model</h3>
+          <p class="now">now: section 6 · DS4A §8.3</p>
+          <p class="q"><b>Noé</b>Why a tree? And how big should it be?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Hero visual</h4><ul><li>The decision tree grows as a living tree. Branches grow when max depth goes up, leaves glow with their class, and the trunk is the first question (shelf location) <span class="tag new">new</span></li><li>The 400 car-seat stores shown as a little town map, coloured High and Low, so "a new store" is a building you click <span class="tag new">new</span></li></ul></div>
+          <div><h4>Keep</h4><ul><li>Every real tree, count and quiz answer from the backend <span class="tag keep">keep</span></li><li>The surrogate trap and the nested trees <span class="tag keep">keep</span></li></ul></div>
+        </div>
+      </article>
+
+      <article class="sec" style="--c:#5fd39a">
+        <div class="sec-side">
+          <div class="act">Act V</div>
+          <h3>Noé runs the experiment</h3>
+          <p class="now">now: section 7 · the lab hub</p>
+          <p class="q"><b>Noé</b>Can I watch an algorithm think, step by step?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Hero visual</h4><ul><li>The K-Means lesson embedded in the act (not a link out), in the act's colour <span class="tag keep">keep the lesson</span></li><li>k-Nearest Neighbours: a new flower appears, distances shoot out as light beams, the k nearest light up and vote <span class="tag new">new · backend trace</span></li></ul></div>
+          <div><h4>Interaction</h4><ul><li>The class chooses k and the new flower's measurements; the backend computes; everyone sees the vote <span class="tag new">new</span></li></ul></div>
+        </div>
+      </article>
+
+      <article class="sec" style="--c:#e88b6b">
+        <div class="sec-side">
+          <div class="act">Epilogue</div>
+          <h3>Case closed</h3>
+          <p class="now">now: section 8 · summary (not built)</p>
+          <p class="q"><b>Noé</b>So, did the scan change everything?</p>
+        </div>
+        <div class="sec-main">
+          <div><h4>Hero visual</h4><ul><li>An evidence board: every concept from the five acts pinned as a card, joined by glowing threads in the act colours. It builds itself one act at a time <span class="tag new">new</span></li><li>The film's final shot returns: the data points become the hospital window again, closing the loop <span class="tag new">new</span></li></ul></div>
+          <div><h4>Interaction</h4><ul><li>Five recall questions, one per act, answered by the class <span class="tag new">new</span></li></ul></div>
+        </div>
+      </article>
+
+    </div>
+    <p class="keepline"><b>Not touched by any of this:</b> the backend calculations and their tests, the classic ML Lab pages, the K-Means lesson engine, the film and its 3D world. The redesign changes how things look and the story around them, not the numbers.</p>
+  </section>
+
+  <!-- ============================== PART 5 -->
+  <section class="part" aria-labelledby="p5">
+    <div class="part-head"><span class="tab">Part 5</span><h2 id="p5">How we would build it</h2></div>
+    <p class="part-intro">In this order, so the presentation works after every phase. Days are working days of build and test, estimated for this codebase.</p>
+    <div class="road">
+      <table>
+        <thead><tr><th>Phase</th><th>What</th><th>Done when</th><th>Days</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Look</td><td>Chosen palette as tokens, act accents, light-room switch (L), type scale tuned for projectors</td><td>All existing sections render in the new palette; layout and overlap tests pass at 4 screen sizes</td><td class="days">1–2</td></tr>
+          <tr><td>2 · Cast</td><td>2D Noé, Dr. Salizar and the RadiologyML orb in SVG: 8 poses, 6 expressions, speech bubbles; a "who speaks" field in every step's content</td><td>Every step has a speaker; characters match the film's faces and colours</td><td class="days">3–4</td></tr>
+          <tr><td>3 · Acts</td><td>Merge into five acts; act cards; the case-file opener; film-world backdrops and 4–6 s camera moves per act</td><td>The whole deck plays as one story; reduced motion shows still backdrops</td><td class="days">3</td></tr>
+          <tr><td>4 · Hero visuals</td><td>Hospital cut-away (I), conveyor and notebook (II), hospital day (III), living tree and store map (IV)</td><td>Each act's hero visual fills most of the screen and uses real data where the act has data</td><td class="days">5–7</td></tr>
+          <tr><td>5 · Lab</td><td>Embed K-Means; new k-NN backend trace and visual</td><td>k-NN steps come from FastAPI, validated against scikit-learn</td><td class="days">2–3</td></tr>
+          <tr><td>6 · Epilogue + SQ</td><td>Evidence board, recall questions, EN / SQ switch, Albanian text, caption-free film render with both subtitle tracks</td><td>A native speaker has checked the Albanian; both languages play end to end</td><td class="days">2–3</td></tr>
+          <tr><td>7 · Rehearsal</td><td>Run on the real projector, timing pass, presenter notes, fixes</td><td>A full run-through lands within the time slot</td><td class="days">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:10px">Total about 17–23 working days. Phases 1–3 alone (about a week) already deliver the new look and the story; 4–6 can be cut to fit the date.</p>
+  </section>
+
+  <!-- ============================== PART 6 -->
+  <section class="part" aria-labelledby="p6">
+    <div class="part-head"><span class="tab">Part 6</span><h2 id="p6">What I need you to decide</h2></div>
+    <div class="decide">
+      <div><strong>1 · Which palette?</strong><p>A Night Shift, B Warm Lab, or C Data Aurora as the base. D is a light-room backup in every case.</p><em>My pick: B, with C used inside Act II's data journey.</em></div>
+      <div><strong>2 · Characters on every slide?</strong><p>Full cast with speech bubbles, or Noé only as a small guide in the corner, like the reference's mascot.</p><em>My pick: Noé asks, Dr. Salizar answers, the orb reacts.</em></div>
+      <div><strong>3 · Albanian?</strong><p>EN / SQ switch plus a caption-free film render. Needs someone to check the translation.</p><em>My pick: yes, it fits the class.</em></div>
+      <div><strong>4 · How much time?</strong><p>Everything (about 4 weeks) or phases 1–3 first (about 1 week) and decide again.</p><em>My pick: phases 1–3 first.</em></div>
+    </div>
+  </section>
+
+</div>

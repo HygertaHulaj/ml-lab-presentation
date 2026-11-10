@@ -1,0 +1,13 @@
+# Render Blueprint for the online version of the presentation's backend (free plan).
+# Render → New → Blueprint → choose this repository. The frontend is deployed separately on Netlify.
+services:
+  - type: web
+    name: ml-lab-api
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile.render
+    healthCheckPath: /api/health
+    envVars:
+      - key: MLLAB_CORS_ORIGIN_REGEX
+        value: https://.*\.netlify\.app

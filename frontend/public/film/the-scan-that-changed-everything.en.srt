@@ -1,0 +1,91 @@
+1
+00:00:04,800 --> 00:00:09,400
+Every day, hospitals produce thousands of medical images.
+
+2
+00:00:09,800 --> 00:00:14,600
+Each one holds information that could change someone's life.
+
+3
+00:00:16,500 --> 00:00:19,500
+This is Noé.
+
+4
+00:00:19,800 --> 00:00:27,400
+He works weekends at a university hospital, helping radiologists organize and review X-rays, CT scans, and MRI images.
+
+5
+00:00:29,600 --> 00:00:34,400
+Noé: (to himself) How does anyone review all of this carefully?
+
+6
+00:00:36,200 --> 00:00:42,000
+Noé: With so many images every day... how do you make sure nothing important is missed?
+
+7
+00:00:43,000 --> 00:00:46,800
+Dr. Salizar: That's exactly why we're developing something new.
+
+8
+00:00:51,200 --> 00:00:57,800
+RadiologyML is an artificial intelligence system designed to help doctors identify patterns in medical images.
+
+9
+00:00:58,400 --> 00:01:05,600
+Instead of examining every image from scratch, it learns patterns from examples that experts have already reviewed.
+
+10
+00:01:06,000 --> 00:01:09,800
+Note: RadiologyML is fictional. Its score is a model output, not a diagnosis.
+
+11
+00:01:11,000 --> 00:01:15,200
+To a machine, an image begins as numbers.
+
+12
+00:01:16,400 --> 00:01:24,200
+During training, a model learns patterns in those numbers that can help distinguish one type of image from another.
+
+13
+00:01:25,400 --> 00:01:33,600
+The more useful the training examples and feedback, the better the model may become at recognizing relevant patterns.
+
+14
+00:01:36,000 --> 00:01:39,400
+Machine learning models can make mistakes.
+
+15
+00:01:40,200 --> 00:01:46,200
+Doctors review their predictions, identify errors, and provide expert feedback.
+
+16
+00:01:47,000 --> 00:01:54,400
+After careful validation, those corrections can help researchers improve future versions of the model.
+
+17
+00:01:56,000 --> 00:01:59,800
+One day, the system flags an unusual pattern.
+
+18
+00:02:00,800 --> 00:02:07,400
+Dr. Salizar sends the image to a specialist, who confirms that the finding needs urgent attention.
+
+19
+00:02:08,200 --> 00:02:14,600
+The technology hasn't replaced the doctor. It has helped the medical team notice something important sooner.
+
+20
+00:02:16,800 --> 00:02:20,400
+But this raises a bigger question.
+
+21
+00:02:22,000 --> 00:02:26,200
+How can a computer learn from examples?
+
+22
+00:02:27,400 --> 00:02:34,400
+How does it recognize patterns, make predictions, and improve its performance?
+
+23
+00:02:45,600 --> 00:02:49,600
+Welcome to Machine Learning.

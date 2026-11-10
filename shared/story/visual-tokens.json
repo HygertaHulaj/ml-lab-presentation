@@ -1,0 +1,45 @@
+{
+  "$comment": "Visual identity shared by the Vue film, the Remotion cut and docs. Colours are hex; keep saturation moderate (projector-safe).",
+  "color": {
+    "navy": "#0b1630",
+    "nearBlack": "#04070e",
+    "ink": "#070b14",
+    "cyan": "#38d6f0",
+    "electric": "#3b7bff",
+    "violet": "#8b7cf6",
+    "amber": "#f2b54a",
+    "green": "#5fd39a",
+    "red": "#e06666",
+    "text": "#e8eef8",
+    "textDim": "#9fb0c8",
+    "skinNoe": "#d9a57b",
+    "skinSalizar": "#b97a55",
+    "skinSpecialist": "#8d5a3c",
+    "scrubs": "#2f8f9d",
+    "labCoat": "#eef2f7",
+    "navyCoat": "#24345a"
+  },
+  "colorMeaning": {
+    "cyan": "data / signal / the machine's view",
+    "electric": "computation",
+    "violet": "learned features / memory",
+    "amber": "insight, attention, human decision",
+    "green": "validated, reviewed",
+    "red": "warning, possible error (muted)"
+  },
+  "type": {
+    "display": "'Space Grotesk', 'Segoe UI', system-ui, sans-serif",
+    "body": "'Inter', 'Segoe UI', system-ui, sans-serif",
+    "mono": "'JetBrains Mono', ui-monospace, Consolas, monospace",
+    "captionPx": 30,
+    "captionPxPresenter": 40,
+    "minProjectorPx": 22
+  },
+  "motion": {
+    "easeCamera": "easeInOutSine for flights, easeOutCubic for settles. Never linear except steady drifts.",
+    "minShotSeconds": 2.5,
+    "cutBlendSeconds": 0.8,
+    "maxCameraSpeed": "about 6 world units per second inside the lab"
+  },
+  "bloom": { "exterior": 0.9, "lab": 0.55, "digital": 0.85, "journey": 0.6, "landscape": 0.9, "reveal": 1.0 }
+}

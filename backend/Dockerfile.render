@@ -1,0 +1,12 @@
+# Online version (Render, free plan): the same API on a local SQLite file instead of PostgreSQL.
+# Render sets $PORT; the tables are created on startup (MLLAB_AUTO_CREATE_TABLES), so no migration step is needed.
+FROM python:3.12-slim
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
+    MLLAB_DATABASE_URL=sqlite+aiosqlite:///./mllab_online.db \
+    MLLAB_AUTO_CREATE_TABLES=true
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 10000
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
